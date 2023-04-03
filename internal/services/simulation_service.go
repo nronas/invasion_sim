@@ -171,7 +171,7 @@ func (s *SimulationService) reportHeader() {
 	_ = s.reportService.Report(s.ctx, header)
 	_ = s.reportService.Report(s.ctx, strings.Repeat("=", len(header)))
 	_ = s.reportService.Report(s.ctx, "Simulation Parameters are as follows:")
-	_ = s.reportService.Report(s.ctx, fmt.Sprintf("worldService Cities: %d", s.worldService.TotalCities()))
+	_ = s.reportService.Report(s.ctx, fmt.Sprintf("world Cities: %d", s.worldService.TotalCities()))
 	_ = s.reportService.Report(s.ctx, fmt.Sprintf("Aliens: %d", len(s.aliens)))
 	_ = s.reportService.Report(s.ctx, "")
 }

@@ -19,8 +19,12 @@ type worldService struct {
 	citiesGraph      map[string]*models.City
 }
 
+// NewWorldService creates a new service that acts as the entry point for all interaction with the world.
 func NewWorldService(ctx context.Context, citiesRepository repositories.CitiesRepository) (*worldService, error) {
-	world := &worldService{citiesRepository: citiesRepository}
+	world := &worldService{
+		citiesRepository: citiesRepository,
+		citiesGraph:      make(map[string]*models.City),
+	}
 	if err := world.computeCitiesGraph(ctx); err != nil {
 		return nil, err
 	}
@@ -28,10 +32,12 @@ func NewWorldService(ctx context.Context, citiesRepository repositories.CitiesRe
 	return world, nil
 }
 
+// TotalCities returns the non-destroyed cities of the world
 func (w *worldService) TotalCities() int {
 	return len(w.citiesGraph)
 }
 
+// GetRandomCity returns the random non-destroyed cities of the world
 func (w *worldService) GetRandomCity() *models.City {
 	cityNames := maps.Keys(w.citiesGraph)
 	n, _ := rand.Int(rand.Reader, big.NewInt(int64(len(cityNames))))
@@ -39,6 +45,7 @@ func (w *worldService) GetRandomCity() *models.City {
 	return w.citiesGraph[randomCityName]
 }
 
+// WorldToString returns a string based representation of the current world state
 func (w *worldService) WorldToString(_ context.Context) string {
 	line := "\n"
 	for _, city := range w.citiesGraph {
@@ -52,6 +59,7 @@ func (w *worldService) WorldToString(_ context.Context) string {
 	return line
 }
 
+// GetCity returns a city of the world if exists.
 func (w *worldService) GetCity(cityName string) (*models.City, error) {
 	if city, ok := w.citiesGraph[cityName]; ok {
 		return city, nil
@@ -60,6 +68,8 @@ func (w *worldService) GetCity(cityName string) (*models.City, error) {
 	return nil, ErrUnknownCity
 }
 
+// DestroyCity destroys the given city if exists, without updating the underlying data storage(citiesRepository).
+// It also updates all the cities that have the recently destroyed city as their neighbor
 func (w *worldService) DestroyCity(city *models.City) {
 	if city == nil {
 		return
@@ -83,10 +93,6 @@ func (w *worldService) computeCitiesGraph(ctx context.Context) error {
 	cities, err := w.citiesRepository.GetAll(ctx)
 	if err != nil {
 		return err
-	}
-
-	if w.citiesGraph == nil {
-		w.citiesGraph = make(map[string]*models.City)
 	}
 
 	for _, city := range cities {

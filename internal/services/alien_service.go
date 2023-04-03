@@ -11,6 +11,7 @@ type alienService struct {
 	aliensRepository repositories.AliensRepository
 }
 
+// NewAlienService creates a new service that acts as the entry point for all interaction with aliens.
 func NewAlienService(aliensRepository repositories.AliensRepository) *alienService {
 	return &alienService{aliensRepository: aliensRepository}
 }

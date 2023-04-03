@@ -21,6 +21,7 @@ var _ CitiesRepository = (*citiesIOImpl)(nil)
 
 type citiesIOImpl struct {
 	cities []*models.City
+
 	reader io.Reader
 }
 
