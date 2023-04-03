@@ -1,0 +1,21 @@
+Athens north=Sofia west=Palermo east=Ankara south=Cairo
+Palermo north=Rome west=Tunis east=Athens south=Tripoli
+Nice north=Geneva west=Barcelona south=Tunisia
+Warsaw south=Geneva west=Berlin north=Stockholm
+Barcelona north=Paris west=Madrid south=Algiers
+Paris north=Brussels west=London
+Rome west=Barcelona north=Geneva
+London east=Paris west=Brussels
+Stockholm north=Warsaw
+Brussels south=Paris west=London east=Moscow
+Sofia
+Ankara
+Cairo
+Tunis east=Palermo
+Tripoli
+Geneva south=Nice
+Madrid
+Algiers
+Moscow
+Berlin
+Tunisia north=Nice
