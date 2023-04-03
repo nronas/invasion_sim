@@ -1,6 +1,6 @@
 # Alien Invasion Simulation
 
-The risk is imminent we must prepare. Alien invasion is a tool that simulates what will happen to our beloved cities 
+The risk is imminent we must prepare. Alien invasion is a tool that simulates what will happen to our beloved cities
 during an alien invasion.
 
 # Installation
@@ -30,6 +30,10 @@ After building the project a binary will be available under `./bin/` called `cli
 ## Usage
 
 You can check the usage of the tool via `./bin/cli`
+
+Example simulation of the "Armagedon" invasion
+
+`./bin/cli simulation run Armagedon --world-config=./config/world.txt --aliens=2 --max-alien-moves=10`
 
 # Design choices
 
